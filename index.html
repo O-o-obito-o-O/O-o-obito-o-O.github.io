@@ -308,6 +308,42 @@ h2 {
         </svg>
 </div>
 	
+<script>
+	$(function() {
+  var pWidth = $(document).width();
+  var pHeight = $(document).height();
+
+  var maxClamp = 20;
+  var minClamp = -20;
+
+  var boundRect = $("#iris")[0].getBoundingClientRect();
+
+  function moveEye(x, y) {
+    x = Math.min(Math.max(x / 50, minClamp), maxClamp);
+    y = Math.min(Math.max(y / 50, minClamp), maxClamp);
+
+    $("#moving").attr("transform", "translate(" + x + ", " + y + ")");
+  }
+
+  $("#sec-1").mousemove(function(e) {
+    var x = e.clientX - boundRect.left - boundRect.width / 2;
+    var y = e.clientY - boundRect.top - boundRect.height / 2;
+
+    moveEye(x, y);
+  });
+
+  document.addEventListener("touchmove", function(e) {
+    e.preventDefault();
+    var touches = e.changedTouches;
+
+    var x = touches[0].clientX - boundRect.left - boundRect.width / 2;
+    var y = touches[0].clientY - boundRect.top - boundRect.height / 2;
+
+    moveEye(x, y);
+  });
+});
+
+	</script>
 	
 </body>
 </html>
